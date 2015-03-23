@@ -19,7 +19,7 @@ defmodule SchemaValidation.Supervisor do
       :poolboy.child_spec(:schema_validation_pool, pool_options, [])
     ]
 
-    supervise(children, strategy: :one_for_all)
+    supervise(children, strategy: :one_for_one)
 
   end
 
