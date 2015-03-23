@@ -8,7 +8,7 @@ defmodule SchemaValidation.Worker do
     GenServer.start_link(__MODULE__, state, [])
   end
 
-  def init(state) do
+  def init(:ok) do
     file_xsd = './BalanzaComprobacion_1_1.xsd'
     {_ok, xsd} = :xmerl_xsd.process_schema(file_xsd)
     {:ok, xsd}
