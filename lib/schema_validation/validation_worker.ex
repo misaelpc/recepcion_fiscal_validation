@@ -15,10 +15,7 @@ defmodule SchemaValidation.Worker do
   end
 
   def validate(file) do
-    worker = :poolboy.checkout(:schema_validation_pool)
-    file_type = GenServer.call(worker, {:validate, file})
-    :poolboy.checkin(:router, worker)
-    file_type
+    :poolboy.transaction(:schema_validation_pool, fn(worker)-> :gen_server.call(worker, {:validate, file}) end)
   end
 
 
